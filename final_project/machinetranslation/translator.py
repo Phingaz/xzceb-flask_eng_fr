@@ -16,20 +16,18 @@ language_translator = LanguageTranslatorV3(
 )
 language_translator.set_service_url(url)
 
-def english_to_french(english_text):
+def english_to_french(request):
     """Translates from english to french"""
-    french_text = ''
-    if len(english_text) > 0:
-        translation = language_translator.translate(
-            text = english_text, model_id = 'en-fr').get_result()
-        french_text = translation['translations'][0]['translation']
-    return french_text
+    if request is None:
+        return None
+    response = language_translator.translate(text=request,model_id="en-fr").get_result()
+    translation = response['translations'][0]['translation']
+    return translation
 
-def french_to_english(french_text):
+def french_to_english(request):
     """Translates from english to french"""
-    english_text = ''
-    if len(french_text) > 0:
-        translation = language_translator.translate(
-            text = english_text, model_id = 'fr-en').get_result()
-        english_text = translation['translations'][0]['translation']
-    return english_text
+    if request is None:
+        return None
+    response = language_translator.translate(text=request,model_id="fr-en").get_result()
+    translation = response['translations'][0]['translation']
+    return translation
